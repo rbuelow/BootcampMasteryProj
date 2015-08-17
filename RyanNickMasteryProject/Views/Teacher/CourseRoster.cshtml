@@ -1,0 +1,49 @@
+﻿@using RyanNickMasteryProject.Models.CourseModels
+@using RyanNickMasteryProject.Repositories
+@model RyanNickMasteryProject.Models.CourseModels.CourseRosterViewModel
+@{
+    ViewBag.Title = "CourseRoster";
+}
+
+<h2>@Model.CourseRosterData.Select(x=>x.CourseName).First() - Roster</h2>
+
+<div>
+    @Html.ActionLink("Information", "CourseInformation", new { courseId = Model.CourseRosterData.Select(x => x.CourseId).First() })
+    |
+    @Html.ActionLink("Roster", "CourseRoster", new { courseId = Model.CourseRosterData.Select(x=>x.CourseId).First() })
+    |
+    @Html.ActionLink("Gradebook", "CourseGradebook", new { courseId = Model.CourseRosterData.Select(x => x.CourseId).First() })
+</div>
+
+<div class="container" style="padding: 0">
+
+
+    <div class="col-md-5" style="padding: 0">
+        <h4>Roster</h4>
+        <table class="table table-striped col-md-10" style="border: solid">
+            <thead>
+                <tr style="background-color: grey; border-bottom: solid">
+                    <th class="col-md-3" style="border-right: solid">First Name</th>
+                    <th class="col-md-3" style="border-right: solid">Last Name</th>
+                    <th class="col-md-2" style="border-right: solid">Email</th>
+                    <th class="col-md-2" style="border-right: solid"></th>
+                </tr>
+            </thead>
+            @foreach (var x in Model.CourseRosterData)
+            {
+                <tr>
+                    <td style="border-right: solid">@x.FirstName</td>
+                    <td style="border-right: solid">@x.LastName</td>
+                    <td style="border-right: solid">@x.Email</td>
+                    <td style="border-right: solid">
+                        <a href="@Url.Action("DeleteFromRoster", "Teacher", new {userId=x.UserId, rosterId=TeacherRepo.GetRosterId(x.UserId,x.CourseId)})">
+                            <span class="glyphicon glyphicon-trash" style="float: right"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    @Html.Partial("AddStudentPartial", new AddStudentSearchResult())
+    
+</div>

@@ -1,0 +1,6 @@
+﻿@model RyanNickMasteryProject.Models.ApplicationUser
+           
+@if (User.IsInRole("Admin"))
+{
+    Html.ActionLink("Admin", "AdminDashboard", "Admin");
+}

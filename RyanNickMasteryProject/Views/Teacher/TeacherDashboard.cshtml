@@ -1,0 +1,31 @@
+﻿@using System.Linq
+@using System.Web.Mvc.Html
+@using RyanNickMasteryProject.BizLogic
+@using RyanNickMasteryProject.Repositories
+@model LmsUser
+
+<div>
+    <h2>Teacher Dashboard</h2>
+</div>
+
+<h3>My Classes</h3>
+<div class="col-md-6" style="border: solid; padding: 10px; padding-bottom: 30px">
+           
+    <table class="col-md-12" style="width: 85%">
+        <tr style="">
+            <td>
+                <button type="button" class="btn btn-default btn-xs">Add Class</button>
+            </td>
+            <td align="right">Current(@TeacherOperations.GetTeacherDashboardInfo(Model.UserId).CurrentCourses) - 
+                Archived (@TeacherOperations.GetTeacherDashboardInfo(Model.UserId).ArchivedCourses)</td>
+        </tr>
+        @foreach (var x in TeacherOperations.GetTeacherDashboardInfo(Model.UserId).CourseList)
+        {
+            <tr style="border: solid; padding-bottom: 10px; padding-top: 10px">
+                <td class="col-md-3">@Html.ActionLink(x.CourseName, "CourseInformation", "Teacher", new {courseId = x.CourseId}, null)</td>
+                <td class="col-md-3" align="right">@x.NumOfStudentsInCourse Students</td>
+            </tr>
+        }
+    </table>
+
+</div>

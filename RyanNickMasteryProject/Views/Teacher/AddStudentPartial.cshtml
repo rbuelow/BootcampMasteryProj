@@ -1,0 +1,92 @@
+﻿@model RyanNickMasteryProject.Models.CourseModels.AddStudentSearchResult
+@{
+    var listItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "K", Value = "1" }, 
+        new SelectListItem { Text = "1st Grade", Value = "2" }, 
+        new SelectListItem { Text = "2nd Grade", Value = "3" }, 
+        new SelectListItem { Text = "3rd Grade", Value = "4" }, 
+        new SelectListItem { Text = "4th Grade", Value = "5" },
+        new SelectListItem { Text = "5th Grade", Value = "6" },
+        new SelectListItem { Text = "6th Grade", Value = "7" },
+        new SelectListItem { Text = "7th Grade", Value = "8" },
+        new SelectListItem { Text = "8th Grade", Value = "9" },
+        new SelectListItem { Text = "9th Grade", Value = "10" },
+        new SelectListItem { Text = "10th Grade", Value = "11" },
+        new SelectListItem { Text = "11th Grade", Value = "12" },
+        new SelectListItem { Text = "12th Grade", Value = "13" }
+    };
+}
+
+<div class="col-md-5 col-md-offset-1" style="padding: 0">
+    <h4>Add Student</h4>
+</div>
+<div class="col-md-5 col-md-offset-1" style="border: solid; padding: 12px">
+    <div class="col-md-12">
+        <input type="text" id="lastName"/>
+        @Html.DropDownListFor(m => m.GradeLevelKey, listItems)
+        <button id="theButton">Search</button>
+    </div>
+
+    <div class="row" style="">
+        <div class="col-md-12">Results</div>
+    </div>
+
+    <hr style="margin: 10px"/>
+
+    <div class="col-md-10">
+        <table class="table table-striped col-md-10" style="border: solid">
+            <thead>
+                <tr style="background-color: grey">
+                    <th class="col-md-3" style="border-right: solid">First Name</th>
+                    <th class="col-md-3" style="border-right: solid">Last Name</th>
+                    <th class="col-md-2" style="border-right: solid">Grade</th>
+                    <th class="col-md-2" style="border-right: solid"></th>
+                </tr>
+            </thead>
+            <tr id="searchResults"></tr>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    
+    <script>
+        $(function () {
+            $('#theButton').click(function () {
+                var student = {
+                    GradeLevel: $('#GradeLevelKey').val(),
+                    LastName: $('#lastName').val()               
+            };
+
+                // let's do some ajax!!
+                $.ajax({
+                    url: '/SearchApi',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: JSON.stringify(student),
+                    success: function (data) {
+                        $('#searchResults').empty();
+                        if (data.length < 1) {
+                            $('#searchResults').append('<td>No Matches</td>');
+                        } else {
+                            for (var i = 0; i < data.length; i++) {
+                                var emp = data[i];
+                                $('#searchResults').append('<td>' + emp.FirstName + '</td>' +
+                                                           '<td>' + emp.LastName + '</td>' +
+                                                           '<td>' + emp.GradeLevel + '</td>' +
+                                                           '<td><span class="glyphicon glyphicon-plus-sign"></span></td>'
+                                );
+                            }
+                        }
+                    },
+                    error: function (data) {
+                        alert('you done messed up');
+                    }
+                });
+            });
+        });
+</script>     
+}

@@ -1,0 +1,52 @@
+﻿@using RyanNickMasteryProject.Models.CourseModels
+@using WebGrease.Css.Extensions
+@model List<RyanNickMasteryProject.Models.CourseModels.GradebookModel>
+@{
+    ViewBag.Title = "CourseGradebook";
+}
+
+<h2>Gradebook</h2>
+
+<div>
+    @Html.ActionLink("Information", "CourseInformation", new {courseId=Model.FirstOrDefault().CourseId})
+    |
+    @Html.ActionLink("Roster", "CourseRoster", new { courseId = Model.FirstOrDefault().CourseId })
+    |
+    @Html.ActionLink("Gradebook", "CourseGradebook", new { courseId = Model.FirstOrDefault().CourseId })
+</div>
+
+<div>
+    
+    @Html.ActionLink("Add Assignment", "AddAssignment", "Teacher", new {courseId = Model.First().CourseId}, new { @class = "btn btn-default btn-sm"})
+</div>
+
+<div class="col-md-12" style="padding: 0">
+    <table class="table table-striped" style="border: solid">
+        <thead>
+            <tr style="background-color: grey">
+                <th style="border: solid">First Name</th>
+                <th style="border: solid">Last Name</th>
+                <th style="border: solid">Grade</th>
+                @foreach (var x in Model)
+                {
+                    <th style="border: solid">@x.AssignmentName</th>
+                }
+            </tr>
+        </thead>
+        
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td class="col-md-2" style="border-right: solid">@x.FirstName</td>
+                <td class="col-md-2" style="border-right: solid">@x.LastName</td>
+                <td class="col-md-1" style="border-right: solid">@x.Grade</td>
+                @foreach (var y in Model)
+                {
+                    <td class="">@y.Percentage</td>  
+                }
+                <td class="col-md-2"></td>
+            </tr>
+        }
+    </table>
+</div>
+

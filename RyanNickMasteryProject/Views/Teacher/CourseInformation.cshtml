@@ -1,0 +1,74 @@
+﻿@model RyanNickMasteryProject.Models.CourseModels.CourseModel
+@using System.Reflection
+@using System.Web.UI.WebControls
+@using RyanNickMasteryProject.BizLogic
+@using RyanNickMasteryProject.Repositories
+
+@{
+    ViewBag.Title = "Course Information";
+    
+    var listItems = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "", Value = "" },
+        new SelectListItem { Text = "K", Value = "1" },
+        new SelectListItem { Text = "1st Grade", Value = "2" },
+        new SelectListItem { Text = "2nd Grade", Value = "3" },
+        new SelectListItem { Text = "3rd Grade", Value = "4" },
+        new SelectListItem { Text = "4th Grade", Value = "5" },
+        new SelectListItem { Text = "5th Grade", Value = "6" },
+        new SelectListItem { Text = "6th Grade", Value = "7" },
+        new SelectListItem { Text = "7th Grade", Value = "8" },
+        new SelectListItem { Text = "8th Grade", Value = "9" },
+        new SelectListItem { Text = "9th Grade", Value = "10" },
+        new SelectListItem { Text = "10th Grade", Value = "11" },
+        new SelectListItem { Text = "11th Grade", Value = "12" },
+        new SelectListItem { Text = "12th Grade", Value = "13" }
+    };
+    
+}
+
+<h2>@Model.CourseName</h2>
+
+<div>
+    @Html.ActionLink("Information", "CourseInformation", new { courseId = Model.CourseId })
+    |
+    @Html.ActionLink("Roster", "CourseRoster", new { courseId=Model.CourseId })
+    |
+    @Html.ActionLink("Gradebook", "CourseGradebook", new { courseId = Model.CourseId })
+</div>
+
+<h4>Information</h4>
+
+
+<div class="col-md-7" style="border: solid">
+    <div class="col-md-6">
+        <div class="col-md-12">Class Name</div>
+        <div class="col-md-12">@Html.TextBoxFor(m => m.CourseName)</div>
+        <div class="col-md-12">Subject</div>
+        <div class="col-md-12">@Html.TextBoxFor(m => m.SubjectName)</div>
+        <div class="col-md-12">Start Date</div>
+        <div class="col-md-12">@Html.TextBoxFor(m => m.StartDate)</div>
+        <div class="col-md-12">End Date</div>
+        <div class="col-md-12">@Html.TextBoxFor(m => m.EndDate)</div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="col-md-7">Grade Level</div>
+        <div class="col-md-5">Archive</div>
+        <div class="col-md-7">@Html.DropDownListFor(m => m.GradeLevel, listItems)</div>
+        <div class="col-md-5">@Html.CheckBoxFor(m => m.IsArchived)</div>
+        <div class="col-md-12">Description</div>
+        <div class="col-md-12">@Html.TextAreaFor(m => m.CourseDescription)</div>
+    </div>
+    <div class="col-md-12 col-md-offset-9">
+        <button>Save</button>
+    </div>
+</div>
+
+
+<div class="col-md-1">    
+</div>
+
+<div class="col-md-4" style="border: solid">
+    Total Students    
+</div>

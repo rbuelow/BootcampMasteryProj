@@ -1,0 +1,27 @@
+﻿@using RyanNickMasteryProject.Models
+@using RyanNickMasteryProject.Repositories
+@model StudentCourse
+
+
+
+<h2>Algebra 1</h2>
+
+<div class="col-md-12">
+    
+    @for (int i = 1; i < StudentRepo.GetStudentCourses(Model.UserId).Count; i += 4)
+    {
+        foreach (var a in Model.StudentAssignments)
+        {
+            
+            <div class="col-md-2" style="border: solid">
+                <div class="text-center">@a.AssignmentName</div>
+                <div class="row">
+                    <strong>@a.Percentage</strong>
+                    <strong>@a.Grade</strong>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        }
+    }
+</div>
+

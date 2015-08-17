@@ -1,0 +1,46 @@
+﻿@using RyanNickMasteryProject.BizLogic
+@using RyanNickMasteryProject.Repositories
+@model Assignment
+@{
+    ViewBag.Title = "AddAssignment";
+}
+
+<h2>@TeacherOperations.GetCourseInfo(Model.CourseId).CourseName</h2>
+
+<div>
+    @Html.ActionLink("Information", "CourseInformation", new { courseId=Model.CourseId })
+    |
+    @Html.ActionLink("Roster", "CourseRoster", new { courseId = Model.CourseId })
+    |
+    @Html.ActionLink("Gradebook", "CourseGradebook", new { courseId = Model.CourseId })
+</div>
+
+<h4>Add Assignment</h4>
+
+
+<div class="col-md-6" style="border: solid; padding: 12px;">
+    @{
+        using (Html.BeginForm("AddAssignment", "Teacher", FormMethod.Post))
+        {
+            @Html.HiddenFor(m=>m.CourseId)
+            <div class="col-md-6" style="padding: 0">
+                <div class="col-md-12">Name</div>
+                <div class="col-md-12">@Html.TextBoxFor(m => m.AssignmentName)</div>
+                <div class="col-md-12">Possible Points</div>
+                <div class="col-md-12">@Html.TextBoxFor(m => m.PossiblePoints)</div>
+                <div class="col-md-12">Due Date</div>
+                <div class="col-md-12">@Html.TextBoxFor(m => m.DueDate)</div>
+            </div>
+
+            <div class="col-md-6" style="padding: 0">
+                <div class="col-md-12">Description</div>
+                <div class="col-md-12">@Html.TextAreaFor(m => m.AssignmentDescription, new {style = "width:225px; height:120px;"})</div>
+            </div>
+
+            <div class="col-md-1 col-md-offset-10" style="padding: 0; padding-top: 10px">
+                <input type="submit"/>
+            </div>
+        }
+    }
+</div>
+<div class="col-md-6"></div>

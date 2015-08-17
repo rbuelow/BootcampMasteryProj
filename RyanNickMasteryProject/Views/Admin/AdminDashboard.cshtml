@@ -1,0 +1,38 @@
+﻿@using RyanNickMasteryProject.Repositories
+
+
+<h2>Admin Dashboard</h2>
+<p>Unassigned Users</p>
+
+
+
+
+
+<div class="col-md-12">
+    <table class="table table-striped" style="border: solid">
+        <thead>
+            <tr style="background-color: grey">
+                <th class="col-md-2" style="border: solid">Last Name</th>
+                <th class="col-md-2" style="border: solid">First Name</th>
+                <th class="col-md-3" style="border: solid">Email</th>
+                <th class="col-md-3" style="border: solid">Suggested Role</th>
+                <th class="col-md-2" style="border: solid"></th>
+
+            </tr>
+        </thead>
+
+        @foreach (var x in AdminRepo.LmsUserSelectUnassigned())
+        {
+            <tr class="">
+                <td class="col-md-2" style="border-left: solid">@x.LastName</td>
+                <td class="col-md-2" style="border-left: solid">@x.FirstName</td>
+                <td class="col-md-2" style="border-left: solid">@x.Email</td>
+                <td class="col-md-2" style="border-left: solid">@x.SuggestedRole</td>
+                <td class="col-md-2" style="text-align: center; border-left: solid; border-right: solid">
+                   @Html.ActionLink("Details", "UserDetails", "Admin", new { id = x.UserId}, FormMethod.Post)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
